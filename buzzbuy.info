@@ -1,0 +1,6 @@
+name = BuzzBuy 
+description = "Social Commerce Application"
+core = 6.x
+
+dependencies[] = amazon
+dependencies[] = fbconnect

@@ -1,0 +1,4 @@
+<?php 
+
+define('BUZZBUY_MODULE_NAME', 'buzzbuy');
+?>
