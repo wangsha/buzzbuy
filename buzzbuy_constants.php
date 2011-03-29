@@ -3,12 +3,28 @@
 /**
  * Tables
  */
-define('BUZZBUY_PURCHASELIST', 'buzzbuy_purchaselist');
-define('BUZZBUY_WISHLIST','buzzbuy_wishlist');
-define('BUZZBUY_FB_FRIENDLIST',	'buzzbuy_fb_friendlist');
-define('BUZZBUY_FOLLOWING',	'buzzbuy_following');
-define('BUZZBUY_FOLLOWED', 'buzzbuy_followed');
+define('BUZZBUY_ACTIVITY_LIST', 'buzzbuy_activity_list');
+define('BUZZBUY_COMMENT', 'buzzbuy_comment');
+define('BUZZBUY_FRIENDLIST',	'buzzbuy_friendlist');
+define('BUZZBUY_FOLLOW',	'buzzbuy_follow');
+define('BUZZBUY_CONNECTIONS', 'buzzbuy_connections');
 
+/**
+ * Connections
+ */
+define('BUZZBUY_NATIVE', 0);
+define('BUZZBUY_FB_CONNECT', 1);
+define('BUZZBUY_BLIPPY_CONNECT', 2);
 
+/**
+ * Permissions
+ */
+define('BUZZBUY_REGISTERED_PERM', 'buzzbuy_registered');
+define('BUZZBUY_ANONYMOUS_PERM', 'buzzbuy_anonymous');
 
+/**
+ * App Keys
+ */
+define('BLIPPY_API_KEY', 'knPg2f96hwrWtS8b4Iq7');
+define('BLIPPY_API_SECRET', 'gZfC68tOCnVRXSv2OSV9AVjY1w7vKVKhthUTgm7k');
 ?>

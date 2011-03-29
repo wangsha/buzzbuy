@@ -1,4 +1,150 @@
 <?php 
 
 define('BUZZBUY_MODULE_NAME', 'buzzbuy');
+
+require_once drupal_get_path("module", BUZZBUY_MODULE_NAME) ."/buzzbuy_constants.php";
+
+function lions_aas_perm() {
+  return array(
+		BUZZBUY_REGISTERED_PERM,
+		BUZZBUY_ANONYMOUS_PERM,
+	);
+}
+
+//Implementation of hook_menu()
+
+function buzzbuy_menu() {
+
+	$items = array();
+
+	$items[BUZZBUY_MODULE_NAME] = array(
+		'title' => t("BuzzBuy"),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_list'), //default section callback
+		'file' => 'buzzbuy_list.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_ANONYMOUS_PERM),
+		'type' => MENU_NORMAL_ITEM,
+		'weight' => -14,
+	);
+
+	// Add section links
+	$items[BUZZBUY_MODULE_NAME.'/list'] = array(
+		'title' => t('Activity'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_list'),
+		'file' => 'buzzbuy_list.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_ANONYMOUS_PERM),
+		'weight' => -10,
+		'type' => MENU_DEFAULT_LOCAL_TASK,
+	);
+	
+	$items[BUZZBUY_MODULE_NAME.'/list/all'] = array(
+		'title' => t('All'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_list', 2),
+		'file' => 'buzzbuy_list.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'weight' => -10,
+		'type' => MENU_LOCAL_TASK,
+	);
+	
+	$items[BUZZBUY_MODULE_NAME.'/list/following'] = array(
+		'title' => t('Following'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_list', 2),
+		'file' => 'buzzbuy_list.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'weight' => -10,
+		'type' => MENU_LOCAL_TASK,
+	);
+	
+	$items[BUZZBUY_MODULE_NAME.'/list/followed'] = array(
+		'title' => t('Followed'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_list', 2),
+		'file' => 'buzzbuy_list.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'weight' => -10,
+		'type' => MENU_LOCAL_TASK,
+	);
+
+	$items[BUZZBUY_MODULE_NAME.'/review/add/%'] = array(
+		'title' => t('Review'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_review', 3),
+		'file' => 'buzzbuy_review.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'weight' => -9,
+		'type' => MENU_LOCAL_TASK,
+	);
+  
+	$items[BUZZBUY_MODULE_NAME.'/review/edit/%'] = array(
+		'title' => t('Edit Review'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_review', 3),
+		'file' => 'buzzbuy_review.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'type' => MENU_CALLBACK, 
+	); 
+
+	$items[BUZZBUY_MODULE_NAME.'/review/view/%'] = array(
+		'title' => t('View Review'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_review', 3),
+		'file' => 'buzzbuy_review',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_ANONYMOUS_PERM),
+		'type' => MENU_CALLBACK, 
+	);
+	
+	$items[BUZZBUY_MODULE_NAME.'/user/following'] = array(
+		'title' => t('Following'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_following', 2),
+		'file' => 'buzzbuy_user.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'type' => MENU_LOCAL_TASK, 
+	);
+	
+	$items[BUZZBUY_MODULE_NAME.'/user/followed'] = array(
+		'title' => t('Followed'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_followed', 2),
+		'file' => 'buzzbuy_user.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'type' => MENU_LOCAL_TASK, 
+	);
+	
+	$items[BUZZBUY_MODULE_NAME.'/connect'] = array(
+		'title' => t('BuzzBuy Connect'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_connect', 2),
+		'file' => 'buzzbuy_connect.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'type' => MENU_LOCAL_TASK, 
+	);
+	
+	$items[BUZZBUY_MODULE_NAME.'/search'] = array(
+		'title' => t('Search'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_search', 2),
+		'file' => 'buzzbuy_search.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_ANONYMOUS_PERM),
+		'type' => MENU_LOCAL_TASK, 
+	);
+	
+  return $items;
+}
+
 ?>

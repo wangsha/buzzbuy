@@ -10,16 +10,11 @@ require_once drupal_get_path("module","buzzbuy")."/buzzbuy_constants.php";
  */
 function buzzbuy_install() {
 
-	drupal_install_schema(BUZZBUY_MODULE_NAME);
-	$ret = array();
-	db_add_field($ret, 'fbconnect_users', 'name',
-    array('type' => 'varchar', 'length' => 200, 'not null' => TRUE, 'default' => '')
-  );
-	return $ret;
+	drupal_install_schema(BUZZBUY_MODULE_NAME);	
 }
 
 function buzzbuy_schema() {
-	$schema[BUZZBUY_PURCHASELIST] = array(
+	$schema[BUZZBUY_ACTIVITY_LIST] = array(
 		'description' => t('Store user purchase list'),      
 		'fields' => array(                                  
 			'asid' => array(                              
@@ -34,6 +29,27 @@ function buzzbuy_schema() {
 				'description' => t('User id'),                     
 				'not null' => TRUE,                                                                    
 	),
+			'activity'=> array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'description' => t('own, want, recommend, not recommend')
+	),
+			'rating' => array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'description' => t('1-5 rating of the product')
+	),
+			'review' => array(
+				'type' => 'varchar',
+				'length' => '500',
+				'description' => t('Product review')
+	),
+			'timestamp' => array(
+				'type'=>'datetime',
+				'not null' => true,
+	),	
 	),
 		'primary key' => array('asid','uid'),                   
 
@@ -42,30 +58,36 @@ function buzzbuy_schema() {
 	),
 	);
 
-	$schema[BUZZBUY_WISHLIST] = array(
-		'description' => t('Store user wish list'),      
+	
+	$schema[BUZZBUY_COMMENT] = array(
+		'description' => t('Store user comments'),      
 		'fields' => array(                                  
-			'asid' => array(                              
-				'type' => 'varchar',
-  			'length' => '64',                         
-				'description' => t('Amazon item id'),       
+			'id' => array(                              
+				'type' => 'int', 
+				'size' => 'big',                        
+				'description' => t('primary key'),       
 				'not null' => TRUE,                                                                    
 	),
 
 			'uid' => array(                           
-				'type' => 'int',                            
-				'description' => t('User id'),                     
+				'type' => 'int', 
+				'size' => 'big',
+				'description' => t('commenter id'),                     
 				'not null' => TRUE,                                                                    
 	),
+			'timestamp' => array(
+				'type'=>'datetime',
+				'not null' => true,
 	),
-		'primary key' => array('asid','uid'),                   
+	),
+		'primary key' => array('id'),                   
 
 		'indexes' => array(                                 
-			'idx1' => array('asid','uid'),              
+			'idx1' => array('uid'),              
 	),
 	);
-
-	$schema[BUZZBUY_FB_FRIENDLIST] = array(
+	
+	$schema[BUZZBUY_FRIENDLIST] = array(
 		'description' => t('Store user facebook friends'),      
 		'fields' => array(                                  
 			'uid1' => array(                              
@@ -81,6 +103,11 @@ function buzzbuy_schema() {
 				'description' => t('uid2'),                     
 				'not null' => TRUE,                                                                    
 	),
+			'connection' => array(
+				'type'=>'int',
+				'default' => 0,
+				'not null' => true,
+	),
 	),
 		'primary key' => array('uid1','uid2'),                   
 
@@ -89,54 +116,74 @@ function buzzbuy_schema() {
 	),
 	);
 
-	$schema[BUZZBUY_FOLLOWING] = array(
+	$schema[BUZZBUY_CONNECTIONS] = array(
 		'description' => t('Store user following list'),      
-		'fields' => array(                                  
-			'uid1' => array(                              
+		'fields' => array(  
+			'id' => array(
+				'type'=>'serial',
+				'description'=> t('index'),
+	),                                
+			'uid' => array(                              
 				'type' => 'int', 
-				'size' => 'big',
-				'description' => t('uid1'),       
+				'description' => t('user drupal id'),       
 				'not null' => TRUE,                                                                    
 	),
 
-			'uid2' => array(                           
+			'cid' => array(                           
 				'type' => 'int', 
 				'size' => 'big',
-				'description' => t('uid2'),                     
+				'description' => t('connection user id'),                     
 				'not null' => TRUE,                                                                    
 	),
+			'ctype' => array(                           
+				'type' => 'int', 
+				'description' => t('connection type'),                     
+				'not null' => TRUE,                                                                    
+	),
+			'cname' => 	array(
+				'type' => 'varchar',
+				'length' => '255',
+				'description' => t('connection username'),
+			),
+			'ctoken'=> array(
+				'type' => 'varchar',
+				'length'=>'512',
+				'description' => t('conncetion access token'),
+			),
 	),
 
-		'primary key' => array('uid1','uid2'),                   
+		'primary key' => array('id'),                   
 
 		'indexes' => array(                                 
-			'idx1' => array('uid1','uid2'),              
+			'idx1' => array('uid','ctype'),              
 	),
 	);
 
-	$schema[BUZZBUY_FOLLOWED] = array(
+	$schema[BUZZBUY_FOLLOW] = array(
 		'description' => t('Store user followed list'),      
-		'fields' => array(                                  
-			'uid1' => array(                              
+		'fields' => array(    
+			'id' => array(
+				'type' => 'serial', 
+				'size' => 'big',
+				'description' => t('primary key'),       
+				'not null' => TRUE,  	
+	),                              
+			'follower' => array(                              
 				'type' => 'int', 
 				'size' => 'big',
-				'description' => t('uid1'),       
+				'description' => t('follower'),       
 				'not null' => TRUE,                                                                    
 	),
 
-			'uid2' => array(                           
+			'followed' => array(                           
 				'type' => 'int', 
 				'size' => 'big',
-				'description' => t('uid2'),                     
+				'description' => t('followed'),                     
 				'not null' => TRUE,                                                                    
 	),
 	),
 
-		'primary key' => array('uid1','uid2'),                   
-
-		'indexes' => array(                                 
-			'idx1' => array('uid1','uid2'),              
-	),
+		'primary key' => array('id'),                   
 	);
 
 	return $schema;
@@ -148,8 +195,5 @@ function buzzbuy_schema() {
  */
 function buzzbuy_uninstall() {
 	drupal_uninstall_schema(BUZZBUY_MODULE_NAME);
-	$ret = array();
-  db_drop_field($ret, 'fbconnect_users', 'name');
-  return $ret;
 }
 ?>
