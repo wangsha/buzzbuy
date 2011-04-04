@@ -46,17 +46,36 @@ function buzzbuy_delete_review($id) {
 	
 }
 
-function buzzbuy_follow($follower, $followed) {
-	$sql = "INSERT INTO ".BUZZBUY_FOLLOW." (follower, followed) VALUES (%d, %d)";
-	$res = db_query($sql, $follower, $followed);
-	return $res;
+function buzzbuy_get_follower($uid = null) {
+	if(empty($uid)) {
+		global $user;
+		$uid = $user->uid;
+	}
+	$sql = "SELECT cname, cid FROM ". BUZZBUY_CONNECTIONS .
+				 " WHERE uid IN (SELECT follower FROM ". BUZZBUY_FOLLOW . " WHERE followed = %d)".
+				 " AND ctype=%d";
+	$result = db_query($sql, $uid, BUZZBUY_FB_CONNECT);
+	$rows = array();
+	while($data = db_fetch_array($result)) {
+		$rows[] = $data;
+	}
+	return $rows;
 }
 
-function buzzbuy_unfollow($follower, $followed) {
-	$sql = "DELETE FROM ".BUZZBUY_FOLLOW ." WHERE follower=%d AND followed=%d";
-	$res = db_query($sql, $follower, $followed);
-	return $res;
+function buzzbuy_get_followed($uid = null) {
+	if(empty($uid)) {
+		global $user;
+		$uid = $user->uid;
+	}
+	$sql = "SELECT cname, cid FROM ". BUZZBUY_CONNECTIONS .
+				 " WHERE uid IN (SELECT followed FROM ". BUZZBUY_FOLLOW . " WHERE follower = %d)".
+				 " AND ctype=%d";
+	$result = db_query($sql, $uid, BUZZBUY_FB_CONNECT);
+	$rows = array();
+	while($data = db_fetch_array($result)) {
+		$rows[] = $data;
+	}
+	return $rows;
 }
-
 
 ?>
