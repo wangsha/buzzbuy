@@ -27,6 +27,11 @@ define('BUZZBUY_REGISTERED_PERM', 'buzzbuy_registered');
 define('BUZZBUY_ANONYMOUS_PERM', 'buzzbuy_anonymous');
 
 /**
+ * Follow Mode
+ */
+define('BUZZBUY_FOLLOW_MODE_FOLLOWER', 0);
+define('BUZZBUY_FOLLOW_MODE_FOLLOWED', 1);
+/**
  * App Keys
  */
 define('BLIPPY_API_KEY', 'knPg2f96hwrWtS8b4Iq7');

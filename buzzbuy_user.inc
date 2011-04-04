@@ -1,29 +1,14 @@
-<?php 
+<?php
 require_once drupal_get_path("module", BUZZBUY_MODULE_NAME) ."/buzzbuy_api.inc";
 
-function buzzbuy_following() {
-	global $user;
-	$uid = $user->uid;
+function buzzbuy_followed() {
 	drupal_set_message("following form");
-	$data = buzzbuy_get_following();
-	debug_base($data);
+	$table = buzzbuy_get_followed();
 	$form = array();
-
-	foreach($data as $id => $u) {
-		$form['unfollow_'.$u['uid']] = array(
-			'#type' => 'markup',
-			'#value' => l('Unfollow', 'buzzbuy/follow/'.$uid.'/'.$u['uid']),
-		);
-		$form['activity_'.$u['uid']] = array(
-			'#type' => 'submit',
-			'#value' => 'View Activity',
-		);
-		$form['profile_'.$u['uid']] = array(
-			'#type' => 'submit',
-			'#value' => 'Profile',
-		);
-	}
-	
+	$form['result'] = array(
+		'#type'=>'markup',
+		'#value' => $table,
+	);
 	return $form;
 }
 
@@ -39,7 +24,18 @@ function buzzbuy_unfollow($uid1, $uid2) {
 	drupal_goto('buzzbuy/user/following/'.$uid1);
 }
 
-function buzzbuy_followed() {
+function buzzbuy_follower() {
 	drupal_set_message("followed form");
+	$table = buzzbuy_get_follower();
+	$form = array();
+	$form['result'] = array(
+		'#type'=>'markup',
+		'#value' => $table,
+	);
+	return $form;
+}
+
+function buzzbuy_user_profile($form_state, $uid) {
+	drupal_set_message('buzzbuy_user_profile'.$uid);
 }
 ?>

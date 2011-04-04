@@ -103,11 +103,11 @@ function buzzbuy_menu() {
 		'access arguments' => array(BUZZBUY_ANONYMOUS_PERM),
 		'type' => MENU_CALLBACK, 
 	);
-	
-	$items[BUZZBUY_MODULE_NAME.'/user/following'] = array(
+
+	$items[BUZZBUY_MODULE_NAME.'/user/follower'] = array(
 		'title' => t('Following'),
 		'page callback' => 'drupal_get_form',
-		'page arguments' => array('buzzbuy_following', 2),
+		'page arguments' => array('buzzbuy_follower', 2),
 		'file' => 'buzzbuy_user.inc',
 		'access callback' => 'user_access',
 		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
@@ -132,7 +132,22 @@ function buzzbuy_menu() {
 		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
 		'type' => MENU_CALLBACK, 
 	);
-	
+	$items[BUZZBUY_MODULE_NAME.'/user/unfollow/%/%'] = array(
+		'page callback' => 'buzzbuy_unfollow',
+		'page arguments' => array(3, 4),
+		'file' => 'buzzbuy_user.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'type' => MENU_CALLBACK, 
+	);
+	$items[BUZZBUY_MODULE_NAME.'/user/profile/%'] = array(
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_user_profile', 3),
+		'file' => 'buzzbuy_user.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'type' => MENU_CALLBACK, 
+	);
 	$items[BUZZBUY_MODULE_NAME.'/connect'] = array(
 		'title' => t('BuzzBuy Connect'),
 		'page callback' => 'drupal_get_form',
@@ -142,8 +157,8 @@ function buzzbuy_menu() {
 		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
 		'type' => MENU_LOCAL_TASK, 
 	);
-	
-	
+
+
 	$items[BUZZBUY_MODULE_NAME.'/connect/blippy/redirect'] = array(
 		'title' => t('Blippy Connect'),
 		'page callback' => 'drupal_get_form',
@@ -153,7 +168,7 @@ function buzzbuy_menu() {
 		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
 		'type' => MENU_CALLBACK, 
 	);
-	
+
 	$items[BUZZBUY_MODULE_NAME.'/connect/blippy/callback'] = array(
 		'title' => t('Blippy Connect'),
 		'page callback' => 'drupal_get_form',
@@ -163,7 +178,7 @@ function buzzbuy_menu() {
 		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
 		'type' => MENU_CALLBACK, 
 	);
-	
+
 	$items[BUZZBUY_MODULE_NAME.'/search'] = array(
 		'title' => t('Search'),
 		'page callback' => 'drupal_get_form',
