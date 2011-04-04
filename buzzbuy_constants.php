@@ -1,4 +1,8 @@
 <?php 
+/**
+ * Library Path
+ */
+define('BLIPPY_LIB_PATH', drupal_get_path("module", "buzzbuy") . '/blippylib');
 
 /**
  * Tables

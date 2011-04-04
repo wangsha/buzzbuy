@@ -123,6 +123,15 @@ function buzzbuy_menu() {
 		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
 		'type' => MENU_LOCAL_TASK, 
 	);
+
+	$items[BUZZBUY_MODULE_NAME.'/user/follow/%/%'] = array(
+		'page callback' => 'buzzbuy_follow',
+		'page arguments' => array(3, 4),
+		'file' => 'buzzbuy_user.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'type' => MENU_CALLBACK, 
+	);
 	
 	$items[BUZZBUY_MODULE_NAME.'/connect'] = array(
 		'title' => t('BuzzBuy Connect'),
@@ -132,6 +141,27 @@ function buzzbuy_menu() {
 		'access callback' => 'user_access',
 		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
 		'type' => MENU_LOCAL_TASK, 
+	);
+	
+	
+	$items[BUZZBUY_MODULE_NAME.'/connect/blippy/redirect'] = array(
+		'title' => t('Blippy Connect'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_blippy_redirect'),
+		'file' => 'buzzbuy_connect.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'type' => MENU_CALLBACK, 
+	);
+	
+	$items[BUZZBUY_MODULE_NAME.'/connect/blippy/callback'] = array(
+		'title' => t('Blippy Connect'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('buzzbuy_blippy_callback'),
+		'file' => 'buzzbuy_connect.inc',
+		'access callback' => 'user_access',
+		'access arguments' => array(BUZZBUY_REGISTERED_PERM),
+		'type' => MENU_CALLBACK, 
 	);
 	
 	$items[BUZZBUY_MODULE_NAME.'/search'] = array(
