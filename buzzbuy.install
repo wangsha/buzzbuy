@@ -10,74 +10,47 @@ require_once drupal_get_path("module","buzzbuy")."/buzzbuy_constants.php";
  */
 function buzzbuy_install() {
 
-	drupal_install_schema(BUZZBUY_MODULE_NAME);	
+	drupal_install_schema(BUZZBUY_MODULE_NAME);
 }
 
 function buzzbuy_schema() {
-	$schema[BUZZBUY_ACTIVITY_LIST] = array(
-		'description' => t('Store user purchase list'),      
-		'fields' => array(                                  
-			'asid' => array(                              
-				'type' => 'varchar',
-  			'length' => '64',                         
-				'description' => t('Amazon item id'),       
-				'not null' => TRUE,                                                                    
-	),
-
-			'uid' => array(                           
-				'type' => 'int',                            
-				'description' => t('User id'),                     
-				'not null' => TRUE,                                                                    
-	),
-			'activity'=> array(
-				'type' => 'int',
-				'size' => 'tiny',
-				'not null' => TRUE,
-				'description' => t('own, want, recommend, not recommend')
-	),
-			'rating' => array(
-				'type' => 'int',
-				'size' => 'tiny',
-				'not null' => TRUE,
-				'description' => t('1-5 rating of the product')
-	),
-			'review' => array(
-				'type' => 'varchar',
-				'length' => '500',
-				'description' => t('Product review')
-	),
-			'timestamp' => array(
-				'type'=>'datetime',
-				'not null' => true,
-	),	
-	),
-		'primary key' => array('asid','uid'),                   
-
-		'indexes' => array(                                 
-			'idx1' => array('asid','uid'),              
-	),
-	);
-
-	
 	$schema[BUZZBUY_COMMENT] = array(
 		'description' => t('Store user comments'),      
 		'fields' => array(                                  
 			'id' => array(                              
-				'type' => 'int', 
+				'type' => 'serial', 
 				'size' => 'big',                        
 				'description' => t('primary key'),       
 				'not null' => TRUE,                                                                    
 	),
 
+			'pid' => array(                           
+				'type' => 'varchar', 
+				'length' => '128',
+				'description' => t('product id'),                     
+				'not null' => TRUE,                                                                    
+	),
 			'uid' => array(                           
 				'type' => 'int', 
 				'size' => 'big',
 				'description' => t('commenter id'),                     
 				'not null' => TRUE,                                                                    
 	),
+			'comment' => array(
+				'type' => 'varchar',
+				'length' => '1024',
+				'description' => t('comment text'),
+				'not null' => TRUE,
+	),
+			'recommend' => array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'description' => t('0,1,2: yes, maybe, no')
+	),
 			'timestamp' => array(
 				'type'=>'datetime',
-				'not null' => true,
+				'not null' => TRUE,
 	),
 	),
 		'primary key' => array('id'),                   
@@ -86,7 +59,7 @@ function buzzbuy_schema() {
 			'idx1' => array('uid'),              
 	),
 	);
-	
+
 	$schema[BUZZBUY_FRIENDLIST] = array(
 		'description' => t('Store user facebook friends'),      
 		'fields' => array(                                  
@@ -122,7 +95,7 @@ function buzzbuy_schema() {
 			'id' => array(
 				'type'=>'serial',
 				'description'=> t('index'),
-	),                                
+	),
 			'uid' => array(                              
 				'type' => 'int', 
 				'description' => t('user drupal id'),       
@@ -144,12 +117,21 @@ function buzzbuy_schema() {
 				'type' => 'varchar',
 				'length' => '255',
 				'description' => t('connection username'),
-			),
+	),
 			'ctoken'=> array(
 				'type' => 'varchar',
 				'length'=>'512',
 				'description' => t('conncetion access token'),
-			),
+	),
+			'csecret'=> array(
+				'type' => 'varchar',
+				'length'=>'512',
+				'description' => t('conncetion access secret'),
+	),
+			'timestamp' => array(
+				'type'=>'datetime',
+				'not null' => TRUE,
+	),
 	),
 
 		'primary key' => array('id'),                   
@@ -167,7 +149,7 @@ function buzzbuy_schema() {
 				'size' => 'big',
 				'description' => t('primary key'),       
 				'not null' => TRUE,  	
-	),                              
+	),
 			'follower' => array(                              
 				'type' => 'int', 
 				'size' => 'big',
@@ -180,6 +162,10 @@ function buzzbuy_schema() {
 				'size' => 'big',
 				'description' => t('followed'),                     
 				'not null' => TRUE,                                                                    
+	),
+		  'timestamp' => array(
+				'type'=>'datetime',
+				'not null' => TRUE,
 	),
 	),
 

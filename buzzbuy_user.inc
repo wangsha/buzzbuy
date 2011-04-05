@@ -12,16 +12,23 @@ function buzzbuy_followed() {
 	return $form;
 }
 
-function buzzbuy_follow($follower, $followed) {
-	$sql = "INSERT INTO ".BUZZBUY_FOLLOW." (follower, followed) VALUES (%d, %d)";
+function buzzbuy_follow($follower, $followed, $backurl) {
+	$sql = "INSERT INTO ".BUZZBUY_FOLLOW." (follower, followed, timestamp) VALUES (%d, %d, NOW())";
 	$res = db_query($sql, $follower, $followed);
+	if($res) {
+		drupal_set_message("Sucessfully follow " .buzzbuy_get_username($followed));
+	}
+	drupal_goto(buzzbuy_unexplode_url($backurl));
 }
 
-function buzzbuy_unfollow($uid1, $uid2) {
-	drupal_set_message('buzzbuy_unfollow');
+function buzzbuy_unfollow($follower, $followed, $backurl) {
+	drupal_set_message('lalas');
 	$sql = "DELETE FROM ". BUZZBUY_FOLLOW ." WHERE follower = %d AND followed = %d";
 	db_query($sql, $follower, $followed);
-	drupal_goto('buzzbuy/user/following/'.$uid1);
+	if($res) {
+		drupal_set_message("Unfollow " .buzzbuy_get_username($followed));
+	}
+	drupal_goto(buzzbuy_unexplode_url($backurl));
 }
 
 function buzzbuy_follower() {
