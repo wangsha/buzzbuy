@@ -6,7 +6,7 @@ function debug_base($array, $str=NULL){
 	}
 }
 
-function buzzbuy_get_activity_list(&$form, $mode, $uid = null) {
+function buzzbuy_get_activity_list(&$form_state, &$form, $mode, $uid = null) {
 	if(empty($uid)) {
 		global $user;
 		$uid = $user->uid;
@@ -30,8 +30,12 @@ function buzzbuy_get_activity_list(&$form, $mode, $uid = null) {
 
 	$result = pager_query($sql, 20);
 	$rows = array();
+	$form_state['products'] = array();
 	while($data = db_fetch_array($result)) {
 		$row = array();
+		if(!array_key_exists($data['pid'], $form_state['products'])) {
+			$form_state['products'][$data['pid']] = $data;
+		}
 		$form['image_'.$data['pid']] = array(
 			'#type' => 'markup',
 			'#value' => '<a href="'.$data['detailpageurl'].'">
@@ -77,22 +81,24 @@ function buzzbuy_get_activity_list(&$form, $mode, $uid = null) {
 			'#prefix' => '<div style="float:left">',
 			'#suffix' => '</div>',
 		);
+		$fb_favicon = theme('stream_publish_favicon');
 		$form['fb_'.$pid] = array(
 			'#type' => 'checkbox',
-			'#title' => 'Share on Facebook',
+			'#title' => $fb_favicon . ' Share on Facebook',
 			'#name' => 'fb_'.$pid,
 			'#id' => 'fb_'.$pid,
  			'#value' => 1,
 			'#prefix' => '<div style="float:left; color:#999; padding-top:5px; padding-left:5px">',
 			'#suffix' => '</div>',
 		);
+		$bp_favicon = '<img src="'. drupal_get_path("module", BUZZBUY_MODULE_NAME) .'/blippylib/blippy.png" />';
 		$form['bp_'.$pid] = array(
 			'#type' => 'checkbox',
-			'#title' => 'Share on Blippy',
+			'#title' => $bp_favicon . ' Share on Blippy',
 			'#name' => 'bp_'.$pid,
 			'#id' => 'bp_'.$pid,
 			'#value' => 1,
-		  '#prefix' => '<div style="float:left; color:#999; padding-top:5px; padding-left:5px">',
+		  '#prefix' => '<div style="float:left; color:#999; padding-top:4px; padding-left:5px">',
 			'#suffix' => '</div>',
 		);
 		$rows[$pid]['text_'.$pid] .= drupal_render($form['comment_'.$pid]);
@@ -230,10 +236,12 @@ function buzzbuy_get_username($uid) {
 }
 
 function buzzbuy_get_base_url() {
-	return "http://" . $_SERVER['HTTP_HOST'] .'/buzzbuy?q=';
+	return "http://" . $_SERVER['HTTP_HOST'] .'/buzzbuy/?q=';
 }
 
 function buzzbuy_add_connection($uid, $cid, $ctype, $cname, $token, $secret = null) {
+	$delete_sql = "DELETE FROM ".BUZZBUY_CONNECTIONS." WHERE uid=%d AND ctype=%d";
+	db_query($delete_sql, $uid, $ctype);
 	$sql = "INSERT INTO ". BUZZBUY_CONNECTIONS . " (uid, cid, ctype, cname, ctoken, csecret, timestamp)
 				  VALUES (%d, %d, %d, '%s', '%s', '%s', NOW())";
 	return db_query($sql, $uid, $cid, $ctype, $cname, $token, $secret);
@@ -260,13 +268,56 @@ function buzzbuy_insert_user($data) {
 function buzzbuy_insert_comment($data) {
 	if(strlen($data['comment']) == 0) return;
 
-	$c_sql = "INSERT INTO ". BUZZBUY_COMMENT ." (pid, uid, comment, recommend, timestamp)
-						VALUES ('%s', %d, '%s', %d, '%s')";
-	db_query($c_sql, $data['pid'], $data['uid'], $data['comment'], $data['recommend'], date("Y-m-d H:i:s", $data['timestamp']));
+	$c_sql = "INSERT INTO ". BUZZBUY_COMMENT ." (pid, uid, bp_item_id, comment, recommend, timestamp)
+						VALUES ('%s', %d, %d, '%s', %d, '%s')";
+	db_query($c_sql, $data['pid'], $data['uid'], $data['bp_item_id'], $data['comment'], $data['recommend'], date("Y-m-d H:i:s", $data['timestamp']));
 }
 
 function buzzbuy_get_userid($name) {
 	return db_result(db_query("SELECT uid FROM users WHERE name='%s'", $name));
+}
+function buzzbuy_post_to_blippy($item_id, $message) {
+	
+}
+
+function buzzbuy_post_to_facebook($data) {
+	require_once drupal_get_path('module', 'fbconnect') . '/facebook-php-sdk/src/facebook.php';
+
+	// Create our Application instance (replace this with your appId and secret).
+	$facebook = new Facebook(array(
+  	'appId'  => FACEBOOK_APP_ID,
+  	'secret' => FACEBOOK_APP_SECRET,
+  	'cookie' => true,
+	));
+	$session = $facebook->getSession();
+
+	$me = null;
+	// Session based API call.
+	if ($session) {
+		try {
+			$uid = $facebook->getUser();
+			$me = $facebook->api('/me');
+			debug_base($me);
+		} catch (FacebookApiException $e) {
+			debug_base($e);
+		}
+	}
+	$attachment = array(
+								'message' => $data['message'],
+                'name' => $data['name'],
+                'caption' => 'Product review shared on Buzzbuy',
+                'link' => $data['link'],
+								'picture' => $data['picture'],
+                'actions' => array(
+	array('name' => 'View Detail',
+                        						'link' => $data['link']))
+	);
+
+
+	$result = $facebook->api('/me/feed/',
+                                'post',
+	$attachment);
+	debug_base($result);
 }
 
 function Agotime($date)
@@ -309,6 +360,5 @@ function Agotime($date)
 	return "$difference $periods[$j] {$tense}";
 }
 
-$date = "2009-03-04 17:45";
-$result = Agotime($date); // 2 days ago
+
 ?>

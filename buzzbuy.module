@@ -95,7 +95,7 @@ function buzzbuy_menu() {
 	); 
 
 	$items[BUZZBUY_MODULE_NAME.'/review/view/%'] = array(
-		'title' => t('View Review'),
+		'title' => t('Review'),
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array('buzzbuy_review', 3),
 		'file' => 'buzzbuy_review',

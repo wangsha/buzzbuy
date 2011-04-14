@@ -36,6 +36,11 @@ function buzzbuy_schema() {
 				'description' => t('commenter id'),                     
 				'not null' => TRUE,                                                                    
 	),
+			'bp_item_id' => array(                           
+				'type' => 'int', 
+				'description' => t('blippy comment item_id'),                     
+				'not null' => TRUE,                                                                    
+	),
 			'comment' => array(
 				'type' => 'varchar',
 				'length' => '1024',
