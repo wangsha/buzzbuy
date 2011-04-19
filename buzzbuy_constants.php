@@ -38,9 +38,5 @@ define('BUZZBUY_FOLLOW_MODE_FOLLOWED', 1);
 define('BUZZBUY_RECOMMEND', 0);
 define('BUZZBUY_MAYBE', 1);
 define('BUZZBUY_NO', 2);
-/**
- * App Keys
- */
-define('BLIPPY_API_KEY', 'knPg2f96hwrWtS8b4Iq7');
-define('BLIPPY_API_SECRET', 'gZfC68tOCnVRXSv2OSV9AVjY1w7vKVKhthUTgm7k');
+
 ?>

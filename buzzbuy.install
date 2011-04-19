@@ -11,6 +11,12 @@ require_once drupal_get_path("module","buzzbuy")."/buzzbuy_constants.php";
 function buzzbuy_install() {
 
 	drupal_install_schema(BUZZBUY_MODULE_NAME);
+	
+	//make sure buzzbuy module is heavier than blippy
+	db_query("UPDATE {system} SET weight = 9 WHERE name = 'blippy'");
+	db_query("UPDATE {system} SET weight = 10 WHERE name = 'buzzbuy'");
+	  
+	
 }
 
 function buzzbuy_schema() {

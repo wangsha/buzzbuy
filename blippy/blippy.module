@@ -1,0 +1,298 @@
+<?php
+// $Id: blippy_signin.module,v 1.1.2.6 2010/01/25 03:14:45 walkah Exp $
+require_once drupal_get_path('module', 'buzzbuy'). '/buzzbuy_api.inc';
+/**
+ * Implementation of hook_menu().
+ */
+function blippy_menu() {
+	$items = array();
+
+	$items['blippy/redirect'] = array(
+    'title' => 'Blippy Redirect',
+    'page callback' => 'blippy_signin_redirect',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK
+
+	);
+
+	$items['blippy/callback'] = array(
+		'title' => t('Blippy Connect'),
+		'page callback' => 'blippy_signin_callback',
+		'access callback' => TRUE,
+		'type' => MENU_CALLBACK, 
+	);
+
+	$items['blippy/oauth'] = array(
+    'title' => 'Twitter',
+    'access callback' => TRUE,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('blippy_oauth_callback'),
+    'type' => MENU_CALLBACK,
+    'file' => 'blippy.pages.inc',
+	);
+
+	$items['admin/settings/blippy'] = array(
+    'title' => 'Blippy',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('blippy_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'blippy.pages.inc',
+    'description' => "Manage Blippy Connect settings.",
+	);
+
+
+	return $items;
+}
+
+/**
+ * Implementation of hook_block().
+ */
+function blippy_signin_block($op = 'list', $delta = 0, $edit = array()) {
+	switch ($op) {
+		case 'list':
+			$block[0]['info'] = t('Sign in with Blippy');
+			return $block;
+		case 'view':
+			global $user;
+			if (!$user->uid && _blippy_use_oauth()) {
+				$block['subject'] = t('Sign in with Blippy');
+				$block['content'] = blippy_signin_button();
+				return $block;
+			}
+	}
+}
+
+/**
+ * Implementation of hook_user().
+ */
+function blippy_user($op, &$edit, &$account, $category = NULL) {
+	if ($op == 'insert' && isset($_SESSION['blippy']['values'])) {
+		unset($_SESSION['blippy']);
+	}
+	$uid =$account->uid;
+	$sql = "SELECT * FROM blippy_account WHERE uid=%d";
+	$blippy = db_fetch_object(db_query($sql, $uid));
+	global $user;
+	$user->blippy = $blippy;
+}
+
+/**
+ * returns an image link for signing in with blippy
+ */
+function blippy_signin_button() {
+
+	$img = drupal_get_path('module', 'blippy') . '/images/blippy_signin-solo.png';
+
+	return l(theme('image', $img, t('Sign in with Blippy')), 'blippy/redirect', array('html' => TRUE));
+}
+
+
+/**
+ * Submit handler for blippy signin
+ */
+function blippy_signin_redirect() {
+
+	if(blippy_user_autoconnect()) return;
+
+	$key = variable_get('blippy_consumer_key', '');
+	$secret = variable_get('blippy_consumer_secret', '');
+	module_load_include('lib.php', 'oauth');
+	module_load_include('lib.php', 'blippy');
+	$connection = new BlippyOAuth($key, $secret);
+
+	$callback = url('blippy/oauth/', array('absolute' => true));
+	$token = $connection->getRequestToken($callback);
+	$_SESSION['blippy_oauth']['token'] = $token;
+	$_SESSION['blippy_oauth']['destination'] = referer_uri();
+	$_SESSION['blippy_oauth']['signin'] = TRUE;
+
+	/* If last connection failed don't display authorization link. */
+	switch ($connection->http_code) {
+		case 200:
+			/* Build authorize URL and redirect user to Twitter. */
+			$url = $connection->getAuthorizeURL($token, true);
+			header('Location: ' . $url);
+			break;
+		default:
+			/* Show notification if something went wrong. */
+			echo 'Could not connect to Blippy. Refresh the page or try again later.';
+	}
+}
+
+function blippy_user_autoconnect() {
+	if(user_is_anonymous() && isset($_COOKIE['blippy_uid'])) {
+		drupal_set_message($_COOKIE['blippy_uid'], 'external login');
+		$blippy_uid = $_COOKIE['blippy_uid'];
+		$uid = _is_blippy_connect_user($blippy_uid);
+		$account = user_load($uid);
+		user_external_login($account);
+		//module_invoke('rules', 'invoke_event', 'fbconnect_user_login', $account);
+		return true;
+	}else{
+		return false;
+	}
+}
+
+/**
+ * Check if user already registered in the blippy_account table
+ *
+ * @param Int $fbuid
+ *   Facebook user id
+ * @return Int $uid
+ */
+function _is_blippy_connect_user($blippy_uid) {
+	if ($blippy_uid) {
+		$query = <<<SQL
+      SELECT u.uid FROM {users} u 
+      INNER JOIN {blippy_account} b ON b.uid = u.uid 
+      WHERE blippy_uid = '%s'
+SQL;
+		return db_result(db_query($query, $blippy_uid));
+	}
+}
+/**
+ * Saves a BlippyUser object to {blippy_account}
+ */
+function blippy_account_save($blippy_user, $save_auth = FALSE, $account = NULL) {
+	$values = (array)$blippy_user;
+	$values['blippy_uid'] = $values['id'];
+
+	if ($save_auth) {
+		$values += $blippy_user->get_auth();
+		if (empty($account)) {
+			global $user;
+			$account = $user;
+		}
+		$values['uid'] = $account->uid;
+	}
+	if (db_result(db_query("SELECT 1 FROM {blippy_account} WHERE blippy_uid = %d", $values['id']))) {
+		drupal_write_record('blippy_account', $values, array('blippy_uid'));
+	}
+	else {
+		drupal_write_record('blippy_account', $values);
+	}
+}
+
+
+function _blippy_use_oauth() {
+	return (variable_get('blippy_consumer_key', '') && variable_get('blippy_consumer_secret', ''));
+}
+/**
+ * Implementation of hook_form_alter()
+ */
+function blippy_form_alter(&$form, $form_state, $form_id) {
+	// This only applies if we've got OAuth / signin enabled.
+	if (!_blippy_use_oauth()) {
+		return;
+	}
+
+	if ($form_id == 'blippy_oauth_callback' && $_SESSION['blippy_oauth']['signin']) {
+		$form['#submit'] = array_merge(array('blippy_signin_oauth_callback_submit'), $form['#submit']);
+	}
+
+	if ($form_id == 'user_login' || $form_id == 'user_login_block') {
+
+		$form['blippy_signin'] = array(
+    	'#type' => 'item',
+      '#value' => blippy_signin_button(),
+		);
+	}
+
+	elseif ($form_id == 'user_register' && isset($_SESSION['blippy']['values'])) {
+		$form['name']['#default_value'] = $_SESSION['blippy']['values']['username'];
+		$form['auth_blippy'] = array('#type' => 'hidden', '#value' => $_SESSION['blippy']['values']['user_id']);
+	}
+}
+
+/**
+ * Form submit for the OAuth callback. Here we add in sign-in specific handling
+ */
+function blippy_signin_oauth_callback_submit(&$form, &$form_state) {
+	global $user;
+
+	$success = FALSE;
+	$key = variable_get('blippy_consumer_key', '');
+	$secret = variable_get('blippy_consumer_secret', '');
+
+
+	$account = user_external_load($blippy_user['blippy_uid']);
+	if (isset($account->uid)) {
+		user_external_login($account, $blippy_user);
+		$success = TRUE;
+	}
+	elseif ($uid = db_result(db_query("SELECT uid FROM {blippy_account} WHERE blippy_uid= %d", $blippy['bippy_uid']))) {
+		// We have an existing blippy account - set it up for login
+		$account = user_load($uid);
+		$edit["authname_blippy"] = $blippy_user['user_id'];
+		user_save($account, $edit);
+		$user = $account;
+		$success = TRUE;
+	}
+	else {
+		// No existing user account, let's see if we can register.
+		if (variable_get('blippy_signin_register', 0)) {
+
+			$connection = $form_state['blippy_oauth']['connection'];
+			$response = $form_state['blippy_oauth']['response'];
+			debug_base($response);
+			$blippy = new Blippy($connection);
+			$account = $blippy->verifyCredentials();
+			$blippy_user = new BlippyUser($account);
+			$blippy_user->set_auth($response);
+			// Check for a nickname collision
+			$account = user_load(array('name' => $blippy_user->username));
+			if (!$account->uid) {
+				$edit = array(
+          'name' => $blippy_user->username,
+          'pass' => user_password(),
+          'init' => $blippy_user->username,
+          'status' => 1,
+          "authname_blippy" => $blippy_user->id,
+          'access' => time(),
+				);
+				$account = user_save('', $edit);
+				blippy_account_save($blippy_user, TRUE, $account);
+
+				$user = $account;
+				$success = TRUE;
+				$expires = time() + 3600*24*365; //one year
+				setcookie('blippy_uid', $blippy_user->id, $expires);
+			}
+			else {
+				drupal_set_message(t('The nickname %name is already in use on this site, please register below with a new nick name, or @login to continue.', array('%name' => $response['screen_name'], '@login' => url('user/login'))), 'warning');
+			}
+		}
+		else {
+			drupal_set_message(t('Please complete the following registration form to create your new account on %site', array('%site' => variable_get('site_name', ''))));
+		}
+	}
+
+	if (!$success) {
+		$_SESSION['blippy']['values'] = $response;
+		drupal_goto('user/register');
+	}
+}
+
+
+
+/**
+ * Get the blippy client object for easy access.
+ * @return Blippy
+ *   Blippy Api object
+ */
+
+function blippy_client() {
+	static $blippy = NULL;
+
+	if (is_null($blippy)) {
+		global $user;
+		$b = $user->blippy;
+		$key = variable_get('blippy_consumer_key', '');
+		$secret = variable_get('blippy_consumer_secret', '');
+		module_load_include('lib.php', 'oauth');
+		module_load_include('lib.php', 'blippy');
+		$connection = new BlippyOAuth($key, $secret, $b->oauth_token, $b->oauth_token_secret);
+		$blippy = new Blippy($connection);
+	}
+	return $blippy;
+}

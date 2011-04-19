@@ -1,0 +1,11 @@
+Requirements:
+- Curl
+- PHP5+
+
+The actual client is located in lib/blippy.php. The supporting files in ./oauth_example demonstrates a 3-legged OAuth exchange with blippy.
+The example OAuth application is already set up with a testing consumer key and secret and callback set to http://localhost. In order to get
+this example working, set your apache doc root to oauth_example and verify apache is listening on localhost. 
+
+For support visit http://groups.google.com/group/blippy or #blippy on freenode 
+
+- The Blippy Team

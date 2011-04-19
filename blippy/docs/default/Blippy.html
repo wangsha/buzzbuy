@@ -1,0 +1,1530 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Blippy</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Blippy</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+		<p class="notes">
+			Located in <a class="field" href="_blippy.php.html">/blippy.php</a> (line <span class="field">29</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																																																																																																																																																												
+												<div class="method-definition">
+											<span class="method-result">Blippy</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type"><a href="../default/BlippyConnection.html">BlippyConnection</a></span>&nbsp;<span class="var-name">$connectionObj</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#addTransactionDescription" title="details" class="method-name">addTransactionDescription</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#approveFriendRequest" title="details" class="method-name">approveFriendRequest</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#blockUser" title="details" class="method-name">blockUser</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#clearAllNotifications" title="details" class="method-name">clearAllNotifications</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#deleteComment" title="details" class="method-name">deleteComment</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$commentId</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>, <span class="var-type">String</span>&nbsp;<span class="var-name">$body</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#denyFriendRequest" title="details" class="method-name">denyFriendRequest</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#dismissNotification" title="details" class="method-name">dismissNotification</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#editComment" title="details" class="method-name">editComment</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">String</span>&nbsp;<span class="var-name">$body</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$commentId</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#fetchMerchant" title="details" class="method-name">fetchMerchant</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$id</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#fetchMerchantTransactions" title="details" class="method-name">fetchMerchantTransactions</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$id</span>, [<span class="var-type">Mixed</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#fetchNotification" title="details" class="method-name">fetchNotification</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">Mixed</span>&nbsp;<span class="var-name">$page</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#fetchTransaction" title="details" class="method-name">fetchTransaction</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#followUser" title="details" class="method-name">followUser</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getAllNotifications" title="details" class="method-name">getAllNotifications</a>
+											([<span class="var-type">Mixed</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getChatterFeed" title="details" class="method-name">getChatterFeed</a>
+											([<span class="var-type">Int</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getEveryoneFeed" title="details" class="method-name">getEveryoneFeed</a>
+											([<span class="var-type">Int</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getFriendshipNotifications" title="details" class="method-name">getFriendshipNotifications</a>
+											([<span class="var-type">Mixed</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>], <span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getInteractionNotifications" title="details" class="method-name">getInteractionNotifications</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>], <span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getNewPurchaseNotifications" title="details" class="method-name">getNewPurchaseNotifications</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>], <span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getPopularFeed" title="details" class="method-name">getPopularFeed</a>
+											([<span class="var-type">Int</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getUserBlocking" title="details" class="method-name">getUserBlocking</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getUserFeed" title="details" class="method-name">getUserFeed</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getUserFollowers" title="details" class="method-name">getUserFollowers</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getUserFollowwing" title="details" class="method-name">getUserFollowwing</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getUserInfo" title="details" class="method-name">getUserInfo</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getUserRecentTransactions" title="details" class="method-name">getUserRecentTransactions</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#likeTransaction" title="details" class="method-name">likeTransaction</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#merchantSearch" title="details" class="method-name">merchantSearch</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$q</span>, [<span class="var-type">Mixed</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>], [<span class="var-type">Mixed</span>&nbsp;<span class="var-name">$perPage</span> = <span class="var-default">30</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#nudge" title="details" class="method-name">nudge</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#postNewComment" title="details" class="method-name">postNewComment</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">String</span>&nbsp;<span class="var-name">$body</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#rateLimitStatus" title="details" class="method-name">rateLimitStatus</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#readNotification" title="details" class="method-name">readNotification</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#removeNudge" title="details" class="method-name">removeNudge</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#removeTransactionDescription" title="details" class="method-name">removeTransactionDescription</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#unblockUser" title="details" class="method-name">unblockUser</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#unfollowUser" title="details" class="method-name">unfollowUser</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#unlikeTransaction" title="details" class="method-name">unlikeTransaction</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#verifyCredentials" title="details" class="method-name">verifyCredentials</a>
+										()
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">32</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Blippy</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type"><a href="../default/BlippyConnection.html">BlippyConnection</a></span>&nbsp;<span class="var-name">$connectionObj</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../default/BlippyConnection.html">BlippyConnection</a></span>
+				<span class="var-name">$connectionObj</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddTransactionDescription" id="addTransactionDescription"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addTransactionDescription</span> (line <span class="line-number">226</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Fills in the 'description' field for a transaction</p>
+<p class="description"><p><ul><li>Method: PUT</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			addTransactionDescription
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$transactionId</span><span class="var-description">: The id of the transaction</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodapproveFriendRequest" id="approveFriendRequest"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">approveFriendRequest</span> (line <span class="line-number">412</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Have the authenticating user approve &lt;screen name&gt;'s friendship request</p>
+<p class="description"><p><ul><li>Method: PUT</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			approveFriendRequest
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$username</span><span class="var-description">: the username of the user (may be protected)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodblockUser" id="blockUser"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">blockUser</span> (line <span class="line-number">439</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Authenticating user blocks &lt;screen name&gt;.</p>
+<p class="description"><p><ul><li>Method: PUT</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			blockUser
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$username</span><span class="var-description">: the username of the user (may be protected)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodclearAllNotifications" id="clearAllNotifications"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">clearAllNotifications</span> (line <span class="line-number">627</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Marks all notifications as read</p>
+<p class="description"><p><ul><li>Method: DELETE</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			clearAllNotifications
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddeleteComment" id="deleteComment"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">deleteComment</span> (line <span class="line-number">293</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Edit the text of an existing comment.</p>
+<p class="description"><p><ul><li>Method: DELETE</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			deleteComment
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$commentId</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>, <span class="var-type">String</span>&nbsp;<span class="var-name">$body</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$transactionId</span><span class="var-description">: The id of the transaction</span>			</li>
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$body</span><span class="var-description">: the text of the new comment</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$commentId</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddenyFriendRequest" id="denyFriendRequest"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">denyFriendRequest</span> (line <span class="line-number">426</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Have the authenticating user deny &lt;screen name&gt;'s friend request</p>
+<p class="description"><p><ul><li>Method: DELETE</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			denyFriendRequest
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$username</span><span class="var-description">: the username of the user (may be protected)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddismissNotification" id="dismissNotification"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">dismissNotification</span> (line <span class="line-number">566</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Dismisses a notification: that is, disappears it from the list of current notifications completely.</p>
+<p class="description"><p><ul><li>Method: PUT</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			dismissNotification
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodeditComment" id="editComment"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">editComment</span> (line <span class="line-number">277</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Edit the text of an existing comment.</p>
+<p class="description"><p><ul><li>Method: PUT</li><li>Requires authentication: true</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			editComment
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">String</span>&nbsp;<span class="var-name">$body</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$commentId</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$transactionId</span>			</li>
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$body</span><span class="var-description">: the text of the new comment</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$commentId</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodfetchMerchant" id="fetchMerchant"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">fetchMerchant</span> (line <span class="line-number">487</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the object for a business</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: false, but some transactions may be protected</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			fetchMerchant
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$id</span><span class="var-description">: the business id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodfetchMerchantTransactions" id="fetchMerchantTransactions"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">fetchMerchantTransactions</span> (line <span class="line-number">502</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the most recent transactions for a business</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: false, but some transactions may be protected</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			fetchMerchantTransactions
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$id</span>, [<span class="var-type">Mixed</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$id</span><span class="var-description">: the business id</span>			</li>
+					<li>
+				<span class="var-type">Mixed</span>
+				<span class="var-name">$page</span><span class="var-description">: which page of results</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodfetchNotification" id="fetchNotification"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">fetchNotification</span> (line <span class="line-number">535</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Fetch a specific notification. POST because this action also marks the notification as read.</p>
+<p class="description"><p><ul><li>Method: POST</li><li>Requires authentication: true</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			fetchNotification
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">Mixed</span>&nbsp;<span class="var-name">$page</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$id</span>			</li>
+					<li>
+				<span class="var-type">Mixed</span>
+				<span class="var-name">$page</span><span class="var-description">: which page of results</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodfetchTransaction" id="fetchTransaction"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">fetchTransaction</span> (line <span class="line-number">151</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Fetches a single transaction, including objects for the transaction's user, comments, likes, and nudges.</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			fetchTransaction
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$transactionId</span><span class="var-description">: The id of the transaction</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodfollowUser" id="followUser"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">followUser</span> (line <span class="line-number">384</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Authenticating user follows &lt;screen name&gt;, or requests to, if that user is protected</p>
+<p class="description"><p><ul><li>Method: PUT</li><li>Requires authentication: true</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			followUser
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$username</span><span class="var-description">: the username of the user (may be protected)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetAllNotifications" id="getAllNotifications"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAllNotifications</span> (line <span class="line-number">519</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets all notifications for the authorized user</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: true</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getAllNotifications
+		</span>
+					([<span class="var-type">Mixed</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Mixed</span>
+				<span class="var-name">$page</span><span class="var-description">: which page of results</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetChatterFeed" id="getChatterFeed"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getChatterFeed</span> (line <span class="line-number">99</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">A list of the most recent transactions - which have at least one comment, like, or nudge - from the authenticating user and their friends.</p>
+<p class="description"><p><ul><li>Method: get</li><li>Requires authentication: true</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getChatterFeed
+		</span>
+					([<span class="var-type">Int</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Int</span>
+				<span class="var-name">$page</span><span class="var-description">: the page of results</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetEveryoneFeed" id="getEveryoneFeed"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getEveryoneFeed</span> (line <span class="line-number">114</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The most recent publicly-visible transactions, plus those from the authenticating user's friends, if any.</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: false</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getEveryoneFeed
+		</span>
+					([<span class="var-type">Int</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Int</span>
+				<span class="var-name">$page</span><span class="var-description">: the page of results</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetFriendshipNotifications" id="getFriendshipNotifications"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getFriendshipNotifications</span> (line <span class="line-number">583</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Fetches notifications regarding friendships</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: true</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getFriendshipNotifications
+		</span>
+					([<span class="var-type">Mixed</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>], <span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$id</span>			</li>
+					<li>
+				<span class="var-type">Mixed</span>
+				<span class="var-name">$page</span><span class="var-description">: which page of results</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetInteractionNotifications" id="getInteractionNotifications"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getInteractionNotifications</span> (line <span class="line-number">598</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Fetches notifications for comments, likes, and nudges</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: true</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getInteractionNotifications
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>], <span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$id</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$page</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetNewPurchaseNotifications" id="getNewPurchaseNotifications"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getNewPurchaseNotifications</span> (line <span class="line-number">614</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets notifications for new purchases</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: true</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getNewPurchaseNotifications
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>], <span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$id</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$page</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetPopularFeed" id="getPopularFeed"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getPopularFeed</span> (line <span class="line-number">131</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The most recent publicly-visible transactions - with at least one comment, like, or nudge - plus those from the authenticating user's friends, if any.</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: false</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getPopularFeed
+		</span>
+					([<span class="var-type">Int</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Int</span>
+				<span class="var-name">$page</span><span class="var-description">: the page of results</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetUserBlocking" id="getUserBlocking"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserBlocking</span> (line <span class="line-number">370</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Users blocked by &lt;screen name&gt;</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: true</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getUserBlocking
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$username</span><span class="var-description">: the username of the user (may be protected)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetUserFeed" id="getUserFeed"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserFeed</span> (line <span class="line-number">85</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">A list of the most recent transactions from the authenticating user and their friends.</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: true</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Transaction list</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getUserFeed
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$page</span><span class="var-description">: the page of results</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetUserFollowers" id="getUserFollowers"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserFollowers</span> (line <span class="line-number">356</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Users following &lt;username&gt;</p>
+<p class="description"><p>Method: GET  		Requires authentication: false  		Rate limited: true</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getUserFollowers
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$username</span><span class="var-description">: the username of the user (may be protected)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetUserFollowwing" id="getUserFollowwing"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserFollowwing</span> (line <span class="line-number">342</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Users followed by &lt;username&gt;</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: false</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getUserFollowwing
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$username</span><span class="var-description">: the username of the user (may be protected)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetUserInfo" id="getUserInfo"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserInfo</span> (line <span class="line-number">328</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Fetches the details for the user named by &lt;screen name&gt;, including their most recent transaction</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: false</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getUserInfo
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$username</span><span class="var-description">: the username of the user (may be protected)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetUserRecentTransactions" id="getUserRecentTransactions"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserRecentTransactions</span> (line <span class="line-number">312</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Edit the text of an existing comment.</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: false, but user might be protected.</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getUserRecentTransactions
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$page</span><span class="var-description">: the page of results</span>			</li>
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$username</span><span class="var-description">: the username of the user (may be protected)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodlikeTransaction" id="likeTransaction"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">likeTransaction</span> (line <span class="line-number">166</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Has the authenticating user like the specified transaction</p>
+<p class="description"><p><ul><li>Method: PUT</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			likeTransaction
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$transactionId</span><span class="var-description">: The id of the transaction</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodmerchantSearch" id="merchantSearch"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">merchantSearch</span> (line <span class="line-number">472</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Search businesses by name</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: false</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			merchantSearch
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$q</span>, [<span class="var-type">Mixed</span>&nbsp;<span class="var-name">$page</span> = <span class="var-default">1</span>], [<span class="var-type">Mixed</span>&nbsp;<span class="var-name">$perPage</span> = <span class="var-default">30</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$q</span><span class="var-description">: Search string</span>			</li>
+					<li>
+				<span class="var-type">Mixed</span>
+				<span class="var-name">$page</span><span class="var-description">: which page of results</span>			</li>
+					<li>
+				<span class="var-type">Mixed</span>
+				<span class="var-name">$perPage</span><span class="var-description">: how many results per page</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodnudge" id="nudge"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">nudge</span> (line <span class="line-number">196</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Authorizing user nudges specified transaction</p>
+<p class="description"><p><ul><li>Method: PUT</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			nudge
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$transactionId</span><span class="var-description">: The id of the transaction</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodpostNewComment" id="postNewComment"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">postNewComment</span> (line <span class="line-number">261</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Post a new comment to a transaction</p>
+<p class="description"><p><ul><li>Method: POST</li><li>Requires authentication: true</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			postNewComment
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">String</span>&nbsp;<span class="var-name">$body</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$transactionId</span><span class="var-description">: The id of the transaction</span>			</li>
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$body</span><span class="var-description">: the text of the new comment</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodrateLimitStatus" id="rateLimitStatus"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">rateLimitStatus</span> (line <span class="line-number">62</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the rate limit data for the authenticating user, or current IP if no credentials are provided.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			rateLimitStatus
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodreadNotification" id="readNotification"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">readNotification</span> (line <span class="line-number">551</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Mark a notification as read</p>
+<p class="description"><p><ul><li>Method: DELETE</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			readNotification
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodremoveNudge" id="removeNudge"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">removeNudge</span> (line <span class="line-number">211</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Authorizing user un-nudges the specified transaction.</p>
+<p class="description"><p><ul><li>Method: DELETE</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			removeNudge
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$transactionId</span><span class="var-description">: The id of the transaction</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodremoveTransactionDescription" id="removeTransactionDescription"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">removeTransactionDescription</span> (line <span class="line-number">241</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Clears the transaction's description field</p>
+<p class="description"><p><ul><li>Method: DELETE</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			removeTransactionDescription
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$transactionId</span><span class="var-description">: The id of the transaction</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodunblockUser" id="unblockUser"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">unblockUser</span> (line <span class="line-number">453</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Authenticating user unblocks &lt;screen name&gt;</p>
+<p class="description"><p><ul><li>Method: DELETE</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			unblockUser
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$username</span><span class="var-description">: the username of the user (may be protected)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodunfollowUser" id="unfollowUser"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">unfollowUser</span> (line <span class="line-number">398</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Authenticating user unfollows &lt;screen name&gt;</p>
+<p class="description"><p><ul><li>Method: DELETE</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			unfollowUser
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$username</span><span class="var-description">: the username of the user (may be protected)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodunlikeTransaction" id="unlikeTransaction"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">unlikeTransaction</span> (line <span class="line-number">181</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Authenticating user unlikes the specified transaction</p>
+<p class="description"><p><ul><li>Method: DELETE</li><li>Requires authentication: true</li><li>Rate limited: false</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded json response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			unlikeTransaction
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$transactionId</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$transactionId</span><span class="var-description">: The id of the transaction</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodverifyCredentials" id="verifyCredentials"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">verifyCredentials</span> (line <span class="line-number">53</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns a User object for the authenticating user, or returns a 401 Unauthorized if the credentials are wrong.</p>
+<p class="description"><p><ul><li>Method: GET</li><li>Requires authentication: true</li><li>Rate limited: true</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> User Object of the authenticating user</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			verifyCredentials
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Tue, 18 May 2010 05:35:26 +0000 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

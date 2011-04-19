@@ -1,0 +1,6 @@
+name = Blippy Connect 
+description = Drupal Blippy Client
+php = 5.1
+core = 6.x
+dependencies[] = oauth
+
