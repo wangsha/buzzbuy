@@ -76,8 +76,14 @@ function buzzbuy_get_activity_list(&$form_state, &$form, $mode, $uid = null) {
 			'#prefix' => '<div style="float:left">',
 			'#suffix' => '</div>',
 		);
-		$fb_favicon = theme('stream_publish_favicon');
-		$form['fb_'.$pid] = array(
+
+
+
+		$rows[$pid]['text_'.$pid] .= drupal_render($form['comment_'.$pid]);
+		$rows[$pid]['text_'.$pid] .= drupal_render($form['submit_'.$pid]);
+		if(_is_user_facebook_connected()) {
+			$fb_favicon = theme('stream_publish_favicon');
+			$form['fb_'.$pid] = array(
 			'#type' => 'checkbox',
 			'#title' => $fb_favicon . ' Share on Facebook',
 			'#name' => 'fb_'.$pid,
@@ -85,9 +91,12 @@ function buzzbuy_get_activity_list(&$form_state, &$form, $mode, $uid = null) {
  			'#value' => 1,
 			'#prefix' => '<div style="float:left; color:#999; padding-top:5px; padding-left:5px">',
 			'#suffix' => '</div>',
-		);
-		$tt_favicon = '<img src="'. drupal_get_path("module", 'buzzbuy') .'/twitter.ico" />';
-		$form['tt_'.$pid] = array(
+			);
+			$rows[$pid]['text_'.$pid] .= drupal_render($form['fb_'.$pid]);
+		}
+		if(_is_user_twitter_connected()) {
+			$tt_favicon = '<img src="'. drupal_get_path("module", 'buzzbuy') .'/twitter.ico" />';
+			$form['tt_'.$pid] = array(
 			'#type' => 'checkbox',
 			'#title' => $tt_favicon . ' Share on Twitter',
 			'#name' => 'tt_'.$pid,
@@ -95,11 +104,9 @@ function buzzbuy_get_activity_list(&$form_state, &$form, $mode, $uid = null) {
 			'#value' => 1,
 		  '#prefix' => '<div style="float:left; color:#999; padding-top:4px; padding-left:5px">',
 			'#suffix' => '</div>',
-		);
-		$rows[$pid]['text_'.$pid] .= drupal_render($form['comment_'.$pid]);
-		$rows[$pid]['text_'.$pid] .= drupal_render($form['submit_'.$pid]);
-		$rows[$pid]['text_'.$pid] .= drupal_render($form['fb_'.$pid]);
-		$rows[$pid]['text_'.$pid] .= drupal_render($form['tt_'.$pid]);
+			);
+			$rows[$pid]['text_'.$pid] .= drupal_render($form['tt_'.$pid]);
+		}
 
 
 	}
@@ -108,6 +115,7 @@ function buzzbuy_get_activity_list(&$form_state, &$form, $mode, $uid = null) {
 	$output .= theme_pager(NULL, $pagelimit);
 	return $output;
 }
+
 
 
 function buzzbuy_add_review($values, $uid = null) {
@@ -275,6 +283,22 @@ function buzzbuy_post_to_blippy($item_id, $message) {
 
 }
 
+function _is_user_twitter_connected($uid = NULL) {
+	if(!$uid) {
+		global $user;
+		$uid = $user->uid;
+	}
+	$twitter_accounts = twitter_get_user_accounts($uid);
+	return $twitter_accounts[0]->id;
+
+}
+
+function _is_user_facebook_connected() {
+
+	global $user;
+	return $user->fb_visible;
+
+}
 function buzzbuy_post_to_twitter($data) {
 	global $user;
 	$twitter_accounts = twitter_get_user_accounts($user->uid);
@@ -311,13 +335,13 @@ function buzzbuy_post_to_facebook($data) {
         'link' => $data['link']))
 	);
 
+	$session = $facebook->getSession();
 	$result = $facebook->api(
 		'/me/feed/',
     'post',
 	$attachment);
 	if($result)
 	drupal_set_message(t('Successfully posted to Facebook'));
-
 }
 
 
