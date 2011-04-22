@@ -21,42 +21,46 @@ function buzzbuy_get_activity_list(&$form_state, &$form, $mode, $uid = null) {
 			$sql .= " AND c.uid IN (SELECT followed FROM " .BUZZBUY_FOLLOW. " WHERE follower =".$uid.")";
 			break;
 	}
-	$sql .=" ORDER BY timestamp ASC";
+	$sql .=" GROUP BY c.id ORDER BY timestamp ASC";
 
 	$result = pager_query($sql, 20);
 	$rows = array();
 	$form_state['products'] = array();
 	while($data = db_fetch_array($result)) {
 		$row = array();
+		$link = buzzbuy_get_base_url().'buzzbuy/review/view/'.$data['pid'];
+
 		if(!array_key_exists($data['pid'], $form_state['products'])) {
 			$form_state['products'][$data['pid']] = $data;
 		}
 		$form['image_'.$data['pid']] = array(
 			'#type' => 'markup',
-			'#value' => '<a href="'.$data['detailpageurl'].'">
+			'#value' => '<a href="'.$link.'">
 			<img src="'.$data['url'].'" alt="'.$data['title'].'" width="160px"></a>',
 		);
 		$row['image_'.$data['pid']] = drupal_render($form['image_'.$data['pid']]);
 
 
 
-		if(array_key_exists($data['pid'], $rows)) {
+		/*	if(array_key_exists($data['pid'], $rows)) {
 			$text = '<img src="'. $data['picture'] .'" width="30px" height="30px"> ';
 			$text .= l($data['name'], 'buzzbuy/user/profile/'.$data['uid']);
 			$text .= ' '.$data['comment'];
 			$text .= ' <span style="color:#999">'.Agotime($data['timestamp']) .'</span><br>';
 
 			$rows[$data['pid']]['text_'.$data['pid']] .= $text;
-		}else{
-			$text = '<h3>'. l($data['title'], $data['detailpageurl']) .'</h3>';
-			$text .= '<br><b>' . $data['comment'] .'</b>';
-			$text .= '<br> <span style="color:#999">review by <img src="'. $data['picture'] .'" width="15px" height="15px"> ';
-			$text .= l($data['name'], 'buzzbuy/user/profile/'.$data['uid']);
-			$text .= ' '.Agotime($data['timestamp']) .'</span><hr>';
-			$row['text_'.$data['pid']] = $text;
+			}else{
+			*/
+		$text = '<h3>'. l($data['title'], $link) .'</h3>';
+		$text .= '<br><b>' . $data['comment'] .'</b>';
+		$text .= '<br> <span style="color:#999">review by <img src="'. $data['picture'] .'" width="15px" height="15px"> ';
+		$text .= l($data['name'], 'buzzbuy/user/profile/'.$data['uid']);
+		$text .= ' '.Agotime($data['timestamp']) .' ';
+		$text .= l('Original Site', $data['detailpageurl'], array('attributes' => array('target'=>'_blank'))).'</span><hr>';
+		$row['text_'.$data['pid']] = $text;
 
-			$rows[$data['pid']] = $row;
-		}
+		$rows[$data['pid']] = $row;
+		//}
 	}
 
 	//add comment box
@@ -135,9 +139,8 @@ function buzzbuy_get_follower($uid = null) {
 		global $user;
 		$uid = $user->uid;
 	}
-	$sql = "SELECT cname, cid, uid FROM ". BUZZBUY_CONNECTIONS .
-				 " WHERE uid IN (SELECT follower FROM ". BUZZBUY_FOLLOW . " WHERE followed = %d)".
-				 " AND ctype=%d";
+	$sql = "SELECT name, picture, uid FROM users
+				  WHERE uid IN (SELECT followed FROM ". BUZZBUY_FOLLOW . " WHERE follower = %d)";
 	$result = db_query($sql, $uid, BUZZBUY_FB_CONNECT);
 	$rows = array();
 	while($data = db_fetch_array($result)) {
@@ -151,10 +154,9 @@ function buzzbuy_get_followed($uid = null) {
 		global $user;
 		$uid = $user->uid;
 	}
-	$sql = "SELECT cname, cid, uid FROM ". BUZZBUY_CONNECTIONS .
-				 " WHERE uid IN (SELECT followed FROM ". BUZZBUY_FOLLOW . " WHERE follower = %d)".
-				 " AND ctype=%d";
-	$result = db_query($sql, $uid, BUZZBUY_FB_CONNECT);
+	$sql = "SELECT name, picture, uid FROM users
+				  WHERE uid IN (SELECT follower FROM ". BUZZBUY_FOLLOW . " WHERE followed = %d)";
+	$result = db_query($sql, $uid);
 	$rows = array();
 	while($data = db_fetch_array($result)) {
 		$rows[] = $data;
@@ -171,12 +173,12 @@ function buzzbuy_get_follow_table($uid, $data, $mode) {
 		$form['image_'.$u['uid']] = array(
 			'#type' => 'markup',
 			'#value' => '<a href="buzzbuy/user/profile/'.$u['uid'].'">
-			<img src="http://graph.facebook.com/'.$u['cid'].'/picture" alt="'.$u['cname'].'"></a>',
+			<img src="'.$u['picture'].'" alt="'.$u['name'].'"></a>',
 		);
 		$row['image_'.$u['uid']] = drupal_render($form['image_'.$u['uid']]);
 		$form['name_'.$u['uid']] = array(
 			'#type' => 'item',
-			'#value' => l($u['cname'], 'buzzbuy/user/profile/'.$u['uid']),
+			'#value' => l($u['name'], 'buzzbuy/user/profile/'.$u['uid']),
 		);
 		$row['name_'.$u['uid']] = drupal_render($form['name_'.$u['uid']]);
 
@@ -211,12 +213,12 @@ function buzzbuy_is_following($follower, $followed) {
 	return db_result(db_query($sql, $follower, $followed));
 }
 function buzzbuy_user_basic_stats($uid) {
-	$follower_sql = "SELECT COUNT(follower) as follower FROM ". BUZZBUY_FOLLOW ." WHERE followed=%d";
-	$followed_sql = "SELECT COUNT(followed) as following FROM ". BUZZBUY_FOLLOW ." WHERE follower=%d";
-	$activity_sql = "SELECT COUNT(asid) as reviews FROM ". BUZZBUY_ACTIVITY_LIST ." WHERE uid=%d";
+	$follower_sql = "SELECT COUNT(DISTINCT follower) as follower FROM ". BUZZBUY_FOLLOW ." WHERE followed=%d";
+	$followed_sql = "SELECT COUNT(DISTINCT followed) as following FROM ". BUZZBUY_FOLLOW ." WHERE follower=%d";
+	$activity_sql = "SELECT COUNT(DISTINCT pid) as reviews FROM ". BUZZBUY_COMMENT ." WHERE uid=%d";
 
-	$result['following'] = db_result(db_query($follower_sql, $uid));
-	$result['followed'] = db_result(db_query($followed_sql, $uid));
+	$result['following'] = db_result(db_query($followed_sql, $uid));
+	$result['followed'] = db_result(db_query($follower_sql, $uid));
 	$result['reviews'] = db_result(db_query($activity_sql, $uid));
 	return $result;
 }
@@ -234,8 +236,8 @@ function buzzbuy_unexplode_url($str) {
 }
 
 function buzzbuy_get_username($uid) {
-	$sql = "SELECT cname FROM ". BUZZBUY_CONNECT." WHERE uid=%d AND ctype=%d";
-	return db_result(db_query($sql, $uid, BUZZBUY_FB_CONNECT));
+	$sql = "SELECT name FROM users WHERE uid=%d";
+	return db_result(db_query($sql, $uid));
 }
 
 function buzzbuy_get_base_url() {
@@ -388,11 +390,13 @@ function Agotime($date)
 function buzzbuy_refresh_blippy_data() {
 	global $user;
 	db_query("TRUNCATE TABLE buzzbuy_comment");
+	$sql = "SELECT * FROM blippy_account WHERE uid=%d";
+	$blippyu = db_fetch_object(db_query($sql, $user->uid));
+	$user->blippy = $blippyu;
 	$blippyuser = $user->blippy;
 	if(!empty($blippyuser->blippy_uid)) {
 		$blippy = blippy_client();
 		$following = $blippy->getUserFollowing($blippyuser->username);
-
 		//insert friends
 		foreach($following as $key =>$val) {
 			$f = $val['friend'];

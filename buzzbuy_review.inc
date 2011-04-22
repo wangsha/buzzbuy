@@ -7,8 +7,6 @@ function buzzbuy_review(&$form_state, $asin) {
 	$form = array();
 
 	global $user;
-	debug_base($user);
-	debug_base($_COOKIE);
 	list($module, $review, $mode) = explode('/', $_GET['q']);
 	$form['page_mode'] = array(
     '#type'=>'hidden',

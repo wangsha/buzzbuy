@@ -2,7 +2,6 @@
 require_once drupal_get_path("module", "buzzbuy") ."/buzzbuy_api.inc";
 
 function buzzbuy_list(&$form_state, $mode = null) {
-	drupal_set_message("buzzbuy_list ".$mode);
 	$form = array();
 	$form['markup'] = array(
 		'#type' => 'markup',
