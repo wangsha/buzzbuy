@@ -48,11 +48,10 @@ function buzzbuy_search(&$form_state) {
 }
 
 function buzzbuy_people_search($text) {
-	$sql =" SELECT DISTINCT a.uid, a.profile_image_url as img, a.username,
+	$sql =" SELECT DISTINCT a.uid, a.picture as img, a.name as username,
 					COUNT(c.id) as count 
-					FROM blippy_account a LEFT JOIN buzzbuy_comment c ON c.uid = a.uid
-					WHERE (LOWER(username) LIKE LOWER('%%%s%') 
-					OR LOWER(name) LIKE LOWER('%%%s%'))
+					FROM users a LEFT JOIN buzzbuy_comment c ON c.uid = a.uid
+					WHERE (LOWER(name) LIKE LOWER('%%%s%')) AND a.uid > 0
 				  GROUP BY a.uid";
 	$result = db_query($sql, $text, $text);
 	$rows = array();

@@ -1,11 +1,14 @@
 <?php
 
+require_once drupal_get_path("module", "buzzbuy") ."/buzzbuy_api.inc";
+
 
 function buzzbuy_get_activity_list(&$form_state, &$form, $mode, $uid = null) {
 	if(empty($uid)) {
 		global $user;
 		$uid = $user->uid;
 	}
+
 	$sql = "SELECT c.pid, c.uid, c.comment, c.recommend, c.timestamp,
 					i.title, i.detailpageurl, i.productgroup,  m.url, u.picture, u.name, u.uid
 					FROM " .BUZZBUY_COMMENT ." c, amazon_item i, amazon_item_image m, users u 
@@ -21,9 +24,9 @@ function buzzbuy_get_activity_list(&$form_state, &$form, $mode, $uid = null) {
 			$sql .= " AND c.uid IN (SELECT followed FROM " .BUZZBUY_FOLLOW. " WHERE follower =".$uid.")";
 			break;
 	}
-	$sql .=" GROUP BY c.id ORDER BY timestamp ASC";
-
-	$result = pager_query($sql, 20);
+	$sql .=" ORDER BY timestamp DESC";
+	$pagelimit = 10;
+	$result = pager_query($sql, $pagelimit);
 	$rows = array();
 	$form_state['products'] = array();
 	while($data = db_fetch_array($result)) {
@@ -32,6 +35,10 @@ function buzzbuy_get_activity_list(&$form_state, &$form, $mode, $uid = null) {
 
 		if(!array_key_exists($data['pid'], $form_state['products'])) {
 			$form_state['products'][$data['pid']] = $data;
+		}
+		
+		if(strlen(trim($data['url'])) == 0) {
+			$data['url'] = drupal_get_path('module', 'buzzbuy') .'/noImageAvailable.jpg';
 		}
 		$form['image_'.$data['pid']] = array(
 			'#type' => 'markup',
@@ -313,7 +320,8 @@ function buzzbuy_post_to_twitter($data) {
 
 	try {
 		$result = twitter_set_status($twitter_account, $status);
-		drupal_set_message(t('Successfully posted to Twitter'));
+		if($result->id)
+			drupal_set_message(t('Successfully posted to Twitter'));
 	}
 	catch (TwitterException $e) {
 		drupal_set_message(t('An error occurred when posting to twitter: %code %error',
@@ -328,8 +336,8 @@ function buzzbuy_post_to_facebook($data) {
 	$attachment = array(
 								'message' => $data['message'],
                 'name' => $data['name'],
-                'caption' => 'Product review shared on Buzzbuy',
-                'description' => '',
+                'caption' => 'via buzzbuy.com',
+                'description' => 'Product review shared on Buzzbuy',
                 'link' => $data['link'],
 								'picture' => $data['picture'],
                 'actions' => array(
@@ -438,6 +446,42 @@ function buzzbuy_refresh_blippy_data() {
 				$review['timestamp'] = $p['timestamp'];
 				buzzbuy_insert_comment($review);
 			}
+		}
+
+		//insert friends feed
+		$friends_feed = $blippy->friendsFeed(array('count' => 50));
+		foreach($friends_feed as $item) {
+			if($item['klass'] == "Item") {
+				$u = $item['user'];
+				$p = $item['product'];
+				$c = $item['comments'];
+
+				$p['asin'] = 'b_'.$p['id'];
+				$p['detailpageurl'] = $p['url'];
+				$p['releasedate'] = $p['year'];
+				$p['productgroup'] = ucfirst($p['type']);
+				$p['timestamp'] = $p['created_at'];
+				$p['img'] = $p['image_url'];
+				buzzbuy_insert_product($p);
+				if($u['klass'] == 'User') {
+					$newuser['name'] = $u['username'];
+					$newuser['mail'] = $u['username'] . '@buzzbuy.com';
+					$newuser['picture'] = $u['profile_image_url'];
+					$newuser['status'] = -1;
+					buzzbuy_insert_user($newuser);
+				}
+					
+				$review['uid'] =  buzzbuy_get_userid($newuser['name']);
+				$review['pid'] = $p['asin'];
+				$review['comment'] = $item['review'];
+				$review['recommend'] = BUZZBUY_RECOMMEND;
+				$review['timestamp'] = $p['timestamp'];
+				buzzbuy_insert_comment($review);
+				$sql = "INSERT INTO ".BUZZBUY_FOLLOW." (follower, followed, timestamp) VALUES (%d, %d, NOW())";
+				$res = db_query($sql, $user->uid, $review['uid']);
+
+			}
+
 		}
 	}
 }

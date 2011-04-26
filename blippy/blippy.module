@@ -92,7 +92,10 @@ function blippy_signin_button() {
  */
 function blippy_signin_redirect() {
 
-	if(blippy_user_autoconnect()) return;
+	if(blippy_user_autoconnect()) {
+		header('Location: ' . 'http://buzzbuy.com/buzzbuy');
+		return;
+	};
 
 	$key = variable_get('blippy_consumer_key', '');
 	$secret = variable_get('blippy_consumer_secret', '');
@@ -121,7 +124,6 @@ function blippy_signin_redirect() {
 
 function blippy_user_autoconnect() {
 	if(user_is_anonymous() && isset($_COOKIE['blippy_uid'])) {
-		drupal_set_message($_COOKIE['blippy_uid'], 'external login');
 		$blippy_uid = $_COOKIE['blippy_uid'];
 		$uid = _is_blippy_connect_user($blippy_uid);
 		$account = user_load($uid);
@@ -234,7 +236,6 @@ function blippy_signin_oauth_callback_submit(&$form, &$form_state) {
 
 			$connection = $form_state['blippy_oauth']['connection'];
 			$response = $form_state['blippy_oauth']['response'];
-			debug_base($response);
 			$blippy = new Blippy($connection);
 			$account = $blippy->verifyCredentials();
 			$blippy_user = new BlippyUser($account);

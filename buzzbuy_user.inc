@@ -14,13 +14,15 @@ function buzzbuy_followed() {
 	return $form;
 }
 
-function buzzbuy_follow($follower, $followed, $backurl) {
+function buzzbuy_follow($follower, $followed, $backurl = NULL) {
 	$sql = "INSERT INTO ".BUZZBUY_FOLLOW." (follower, followed, timestamp) VALUES (%d, %d, NOW())";
 	$res = db_query($sql, $follower, $followed);
 	if($res) {
 		drupal_set_message("Sucessfully follow " .buzzbuy_get_username($followed));
 	}
-	drupal_goto(buzzbuy_unexplode_url($backurl));
+	if($backurl) {
+		drupal_goto(buzzbuy_unexplode_url($backurl));
+	}
 }
 
 function buzzbuy_user() {
@@ -73,13 +75,15 @@ function buzzbuy_user() {
 	return $form;
 }
 
-function buzzbuy_unfollow($follower, $followed, $backurl) {
+function buzzbuy_unfollow($follower, $followed, $backurl = NULL) {
 	$sql = "DELETE FROM ". BUZZBUY_FOLLOW ." WHERE follower = %d AND followed = %d";
 	$res = db_query($sql, $follower, $followed);
 	if($res) {
 		drupal_set_message("Sucessfully unfollow " .buzzbuy_get_username($followed));
 	}
-	drupal_goto(buzzbuy_unexplode_url($backurl));
+	if($backurl) {
+		drupal_goto(buzzbuy_unexplode_url($backurl));
+	}
 }
 
 function buzzbuy_follower() {
